@@ -1,0 +1,30 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  # For details on connection pooling, see rails configuration guide
+  # http://guides.rubyonrails.org/configuring.html#database-pooling
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  host: localhost
+  username: postgres
+  password: arunkr
+
+development:
+  <<: *default
+  database: tfl_development
+  username: postgres
+  password: arunkr
+
+ 
+test:
+  <<: *default
+  database: tfl_test 
+  username: postgres
+  password: arunkr
+
+
+#
+production:
+  <<: *default
+  database: tfl_prod
+  username: test3
+  password: <%= ENV['TEST3_DATABASE_PASSWORD'] %>
