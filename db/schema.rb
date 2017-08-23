@@ -10,10 +10,45 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170823074707) do
+ActiveRecord::Schema.define(version: 20170823075644) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "countries", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "regions", force: :cascade do |t|
+    t.string "name"
+    t.string "slug"
+    t.integer "parent_id"
+    t.bigint "state_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["state_id"], name: "index_regions_on_state_id"
+  end
+
+  create_table "states", force: :cascade do |t|
+    t.string "name"
+    t.string "slug"
+    t.bigint "country_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["country_id"], name: "index_states_on_country_id"
+  end
+
+  create_table "sub_regions", force: :cascade do |t|
+    t.string "name"
+    t.string "slug"
+    t.integer "parent_id"
+    t.bigint "region_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["region_id"], name: "index_sub_regions_on_region_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -32,4 +67,7 @@ ActiveRecord::Schema.define(version: 20170823074707) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "regions", "states"
+  add_foreign_key "states", "countries"
+  add_foreign_key "sub_regions", "regions"
 end
