@@ -4,8 +4,8 @@ lock "3.9.0"
 # Change these
 # server 'your_server_ip', port: your_port_num, roles: [:web, :app, :db], primary: true
 
-set :repo_url,        'git@github.com:arunkumarry/ttt.git'
-set :application,     'ttt'
+set :repo_url,        'git@github.com:arunkumarry/ret.git'
+set :application,     'ret'
 set :user,            'arun'
 set :puma_threads,    [4, 16]
 set :puma_workers,    0
